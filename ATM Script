@@ -1,0 +1,40 @@
+import sys
+
+#account balance 
+accountBalance = float(500.25)
+depositAmount = float(0.00)
+
+#printbalance function
+def balance(accountBalance):      #example of a custom function
+  print('Your current balance:')
+  print(accountBalance)
+
+#deposit function
+def deposit(depositAmount, accountBalance):        #example of input parameters
+  print('Deposit was $%.1f' % float(depositAmount) + '0' + ', current balance is $' + str(balance))
+
+#withdraw function
+def withdrawal(withdrawalAmount, balance):      
+  if float(withdrawalAmount) >= float(accountBalance):
+    
+    #example of function returning correct output
+    
+    print('$%.2f' % float(withdrawalAmount), 'is greater than your account balance of $%.2f' % float(accountBalance))
+  else:
+    print('Withdrawal amount was $%.2f' % float(withdrawalAmount) + ', current balance is $' + str(float(balance)))
+
+
+userchoice = input ("What would you like to do?\n")
+
+if(userchoice == 'D'):
+    depositAmount = input('How much would you like to deposit today?\n') #parameters utilized within function
+    balance = accountBalance + float(depositAmount)
+    deposit(depositAmount, balance) 
+elif(userchoice == 'B'):
+  balance(accountBalance)
+elif(userchoice == 'W'):
+  withdrawalAmount = input('How much would you like to withdraw today?\n')
+  balance = accountBalance - float(withdrawalAmount)
+  withdrawal(withdrawalAmount, balance)
+elif(userchoice == 'Q'):
+  print('Thank you for banking with us.')

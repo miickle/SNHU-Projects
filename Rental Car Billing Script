@@ -1,0 +1,99 @@
+#Here the code asks the user for input as to how the vehicle was rented, budget, 
+#daily, or weekly. By using both lower and upper case versions of each letter we 
+#there will be less error messages pop-up for the user. Once input is received 
+#from the user that input (B, D, or W) is assigned to rentalCode variable as a 
+#string
+
+rentalCode = input('(B)udget, (D)aily, or (W)eekly rental?\n')
+while rentalCode not in ('W', 'D', 'B', 'w', 'd', 'b'):
+  print('Invalid rental code. Please re-enter rental code.')
+  rentalCode = input('(B)udget, (D)aily, or (W)eekly rental?\n')
+  if rentalCode in ('W', 'D', 'B', 'w', 'd', 'b'):
+    break;
+
+#Once the rentalCode is input the user will be asked for the amount of time it
+#was rented. Once input is received the number of days or weeks will then be 
+#assigned to the rentalPeriod variable. Depending on what the user enters will 
+#change the rentalPeriod variable. We also use if/elif branches in this code to say
+#if the customer rented at a weekly rate, enter the number of weeks. However, if
+#they rented using budget plan, enter the number of days, and so on. 
+
+if rentalCode == 'W' or rentalCode == 'w':
+  rentalPeriod = input('Number of weeks rented:\n')
+elif rentalCode == 'B' or rentalCode == 'b':
+  rentalPeriod = input('Number of Days Rented:\n')
+elif rentalCode == 'D' or rentalCode == 'd':
+  rentalPeriod = input('Number of Days Rented:\n')
+
+#Below are the charges for each rental period. These will be used later in our
+#equations to determine how much to charge the customer.
+
+budgetCharge = 40.00
+dailyCharge = 60.00
+weeklyCharge = 190.00	
+
+#Here are our equations to determine what the base charge will be. Depending on 
+#what rentalCode is used this variable will be different. If/elif branches are used
+#again in this block of code to determine which equation to use. 
+
+if rentalCode == 'B' or rentalCode == 'b':
+  baseCharge = float(rentalPeriod) * float(budgetCharge)
+elif rentalCode == 'D' or rentalCode == 'd':
+  baseCharge = float(rentalPeriod) * float(dailyCharge)
+elif rentalCode == 'W' or rentalCode == 'w':
+  baseCharge = float(rentalPeriod) * float(weeklyCharge)
+  
+#Once baseCharge, rentalCode, and rentalPeriod are determined we move on to getting
+#specific information the vehicle. We find the starting odometer and the ending 
+#odometer. Then we calculate the total miles driven.
+
+odoStart = input('Starting Odometer Reading:\n')
+odoEnd = input('Ending Odometer Reading:\n')
+totalMiles = int(odoEnd) - int(odoStart)
+
+#Before we can use mileCharge as a variable we have to define and assign it as a 
+#variable. We just set it to 0 for now as it will change as the block of code is run.
+#The agency has different ways of pricing the extra miles. These equations will 
+#determine if there are extra miles to be charged and if there are, how much will be
+#charged. 
+
+mileCharge = 0
+
+if rentalCode == 'B':
+  mileCharge = float(totalMiles) * 0.25
+
+elif rentalCode == 'D':
+  averageDayMiles = float(totalMiles) / float(rentalPeriod);
+  if int(averageDayMiles) <= 100:
+      extraMiles = 0
+  else:
+      extraMiles = float(averageDayMiles) - 100
+  mileCharge = (float(extraMiles) * 0.25) 
+
+elif rentalCode == 'W':
+  averageWeekMiles = float(totalMiles)/ float(rentalPeriod);  
+  if averageWeekMiles <= 900:
+    mileCharge = 0
+  else:
+    mileCharge = 100 * float(rentalPeriod)
+
+#Now we calculate amtDue by getting the sum of baseCharge and mileCharge, which
+#this program has already figured out and assigned to its memory in previous blocks
+#of code.
+    
+amtDue = baseCharge + mileCharge
+
+#Finally, once all input has been received from the user and the amount that is to 
+#be paid has been figured, this program will print the rental summary or receipt.
+#This will show all input information as well as figured amounts. If any input 
+#errors were made the user would be able to see them hear. If the user did make an
+#error they could simply start the program over and have a new rental summary in 
+#seconds.
+
+print('Rental Summary')
+print('Rental Code: ' + rentalCode)
+print('Rental Period: ' + rentalPeriod)
+print('Starting Odometer: ' + odoStart)
+print('Ending Odometer: ' + odoEnd)
+print('Miles Driven: ' + str(totalMiles))
+print('Amount Due: $' + ('{:.2f}'.format(amtDue)))

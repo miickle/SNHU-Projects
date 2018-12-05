@@ -1,0 +1,40 @@
+#Here we create an empty list for all grocery items
+groceryItem = {}
+
+groceryHistory = groceryItem
+x = 0
+grandTotal = 0
+
+stop = True
+
+while stop :              #while loop
+    itemName = input('Item name:\n')                 #Here is where we add data to the list      
+    quantity = input('Quantity purchased:\n')
+    cost = input('Price per item:\n')
+    groceryItem['name'] = itemName                     #adding key-value pairs      
+    groceryItem['number'] = int(quantity)  
+    groceryItem['price'] = float(cost)              #modifying values
+    groceryHistory[x] = groceryItem.copy()         #modifying values in a list
+    exit = input('Would you like to enter another item?\nType \'c\' for continue or \'q\' to quit:\n')
+    if exit == 'q':
+      stop = False
+    else:
+      x = x + 1
+
+grandTotal = float(0.00)
+
+for items in range (0, len(groceryItem) - 1):           #Indexed based range for loop
+  
+  try:
+      itemTotal = (groceryItem[items]['number'] * groceryItem[items]['price']) 
+  except KeyError:
+    ignoreThis = 10
+  grandTotal += float(itemTotal)
+  try:
+    print(str(groceryHistory[items]['number']) + ' ' + str(groceryHistory[items]['name']) + ' @ $' +  #accessing values in a list 
+          str('%.2f' % groceryHistory[items]['price']) + ' ea $' + str('%.2f' % itemTotal))         #also accessing values using keys
+  except KeyError:
+    ignoreThis = 10
+
+    itemTotal = 0 
+print(str('Grand total : $%.2f' % grandTotal))
